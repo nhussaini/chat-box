@@ -21,6 +21,7 @@ const app = express();
 // );
 const server = http.createServer(app);
 // const io = socketio(server);
+//we need to change the above code the the below code for cors to work
 const io = socketio(server, {
   cors: {
     origin: "*",
