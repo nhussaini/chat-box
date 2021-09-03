@@ -1,14 +1,34 @@
 const express = require("express");
 const socketio = require("socket.io");
 const http = require("http");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;
 
 const router = require("./router");
 
 const app = express();
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
+
+// app.use(
+//   cors({
+//     origin: "*",
+//   })
+// );
 const server = http.createServer(app);
-const io = socketio(server);
+// const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+// io.set("origins", "http://localhost:3000");
 
 io.on("connection", (socket) => {
   console.log("We have a new connection!!");
