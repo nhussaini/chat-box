@@ -23,6 +23,12 @@ const Chat = ({ location }) => {
 
     socket.emit("join", { name, room });
 
+    return () => {
+      socket.emit("disconnect");
+
+      socket.off();
+    };
+
     // console.log(socket);
   }, [ENDPOINT, location.search]);
 
