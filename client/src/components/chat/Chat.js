@@ -11,6 +11,8 @@ const queryString = require("query-string");
 const Chat = ({ location }) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const ENDPOINT = "localhost:5000";
 
@@ -31,6 +33,12 @@ const Chat = ({ location }) => {
 
     // console.log(socket);
   }, [ENDPOINT, location.search]);
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
 
   return (
     <div>
