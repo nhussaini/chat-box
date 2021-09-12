@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // import io from "socket.io-client";
 import { io } from "socket.io-client";
 import InfoBar from "../InfoBar/InfoBar";
+import Input from "../Input/Input";
 // const io = require("socket.io-client");
 import "./Chat.css";
 
@@ -57,6 +58,11 @@ const Chat = ({ location }) => {
     <div className="outerContainer">
       <div className="container">
         <InfoBar room={room} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
         {/* <input
           value={message}
           onChange={(event) => setMessage(event.target.value)}
