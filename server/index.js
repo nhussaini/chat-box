@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
   socket.on("join", ({ name, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room });
 
-    // if (error) return callback(error);
+    if (error) return callback(error);
 
     socket.emit("message", {
       user: "admin",
@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
 
     socket.join(user.room);
 
-    // callback();
+    callback();
   });
 
   socket.on("sendMessage", (message, id) => {

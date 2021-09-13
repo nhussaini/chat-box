@@ -24,18 +24,15 @@ const Chat = ({ location }) => {
     const { name, room } = queryString.parse(location.search);
 
     socket = io(ENDPOINT);
-    setName(name);
+
     setRoom(room);
+    setName(name);
 
-    socket.emit("join", { name, room });
-
-    return () => {
-      socket.emit("disconnect");
-
-      socket.off();
-    };
-
-    // console.log(socket);
+    socket.emit("join", { name, room }, (error) => {
+      if (error) {
+        alert(error);
+      }
+    });
   }, [ENDPOINT, location.search]);
 
   useEffect(() => {
@@ -59,7 +56,7 @@ const Chat = ({ location }) => {
     <div className="outerContainer">
       <div className="container">
         <InfoBar room={room} />
-        <Messages messages={messages} />
+        <Messages messages={messages} name={name} />
         <Input
           message={message}
           setMessage={setMessage}
